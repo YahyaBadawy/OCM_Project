@@ -371,63 +371,63 @@ public class OcmBean {
     }
     
     
-//    public static String retreiveAgileInvestigator(String msisdn,  String dateYM, String dateDay, String fileName) {
-//        String drs = "";
-//        String agileInvestigator_ip = Statics.getHQIP();
-//        String agileInvestigator_port = Statics.getHQPort();
-//        String agileInvestigator_username = Statics.getHQUsername();
-//        String agileInvestigator_password = Statics.getHQPassword();
-//        String agileInvestigator_command = Statics.getAgileInvestigatorCommand();
-//        Channel channel = null;
-//        Session session = null;
-//
-//        try {
-//
-//            JSch jsch = new JSch();
-//            session = jsch.getSession(agileInvestigator_username, agileInvestigator_ip, Integer.parseInt(agileInvestigator_port));
-//            session.setPassword(agileInvestigator_password);
-//            session.setConfig("StrictHostKeyChecking", "no");
-//            System.out.println("Establishing Connection...");
-//            session.connect();
-//            System.out.println("Connection established.");
-//            System.out.println("Creating Exec Channel...");
-//            channel = session.openChannel("exec");
-//            System.out.println("Channel Opened...");
-//            ((ChannelExec) channel).setCommand(agileInvestigator_command + msisdn + dateYM + dateDay + fileName);
-//            System.out.println("Command: " + agileInvestigator_command + " " + msisdn + " " + dateYM + " " + fileName);
-//            InputStream commandOutput = channel.getInputStream();
-//            System.out.println("Connecting to EMM15 HQ node...");
-//            channel.connect();
-//            System.out.println("Trying to read the response...");
-//            int readByte = commandOutput.read();
-//            System.out.println("Getting the response...");
-//            while (readByte != 0xffffffff) {
-//                drs += ((char) readByte);
-//                readByte = commandOutput.read();
-//            }
-//            
-//            drs=drs.replace("\n", "");
-//        } catch (IOException ex) {
-//            drs = "Internal Error !\n\nPlease refer to Mediation & RA Support Team !";
-//            return ex.toString();
-//            //Logger.getLogger(ChargingService.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (Exception ex) {
-//            drs = "Internal Error !\n\nPlease refer to Mediation & RA Support Team !";
-//            return ex.toString();
-//            //Logger.getLogger(ChargingService.class.getName()).log(Level.SEVERE, null, ex);
-//        }finally {
-//            if (channel != null) {
-//                channel.disconnect();
-//            }
-//
-//            if (session != null) {
-//                session.disconnect();
-//            }
-//
-//            return drs;
-//        }
-//    }
-//    
+    public static String retreiveAgileInvestigator(String msisdn,  String dateYM, String dateDay, String fileName) {
+        String drs = "";
+        String agileInvestigator_ip = Statics.getHQIP();
+        String agileInvestigator_port = Statics.getHQPort();
+        String agileInvestigator_username = Statics.getHQUsername();
+        String agileInvestigator_password = Statics.getHQPassword();
+        String agileInvestigator_command = Statics.getAgileInvestigatorCommand();
+        Channel channel = null;
+        Session session = null;
+
+        try {
+
+            JSch jsch = new JSch();
+            session = jsch.getSession(agileInvestigator_username, agileInvestigator_ip, Integer.parseInt(agileInvestigator_port));
+            session.setPassword(agileInvestigator_password);
+            session.setConfig("StrictHostKeyChecking", "no");
+            System.out.println("Establishing Connection...");
+            session.connect();
+            System.out.println("Connection established.");
+            System.out.println("Creating Exec Channel...");
+            channel = session.openChannel("exec");
+            System.out.println("Channel Opened...");
+            ((ChannelExec) channel).setCommand(agileInvestigator_command + msisdn + dateYM + dateDay + fileName);
+            System.out.println("Command: " + agileInvestigator_command + " " + msisdn + " " + dateYM + " " + fileName);
+            InputStream commandOutput = channel.getInputStream();
+            System.out.println("Connecting to EMM15 HQ node...");
+            channel.connect();
+            System.out.println("Trying to read the response...");
+            int readByte = commandOutput.read();
+            System.out.println("Getting the response...");
+            while (readByte != 0xffffffff) {
+                drs += ((char) readByte);
+                readByte = commandOutput.read();
+            }
+            
+            drs=drs.replace("\n", "");
+        } catch (IOException ex) {
+            drs = "Internal Error !\n\nPlease refer to Mediation & RA Support Team !";
+            return ex.toString();
+            //Logger.getLogger(ChargingService.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            drs = "Internal Error !\n\nPlease refer to Mediation & RA Support Team !";
+            return ex.toString();
+            //Logger.getLogger(ChargingService.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            if (channel != null) {
+                channel.disconnect();
+            }
+
+            if (session != null) {
+                session.disconnect();
+            }
+
+            return drs;
+        }
+    }
+    
     
     
     

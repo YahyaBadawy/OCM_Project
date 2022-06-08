@@ -228,35 +228,35 @@ public class ChargingBean implements Serializable {
         }
     }
     
-//    public void retreiveAgileInvestigator() {
-//
-//        output = null;
-//        progress = 0;
-//        System.out.println("Starting retreiveAgileInvestigator method...");
-//        if (msisdn.equals("")) {
-//            drs = "Please Enter the MSISDN !";
-//        } else {
-//
-//            try {
-//                System.out.println(drDate);
-//                SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-//                dateString = format.format(drDate);
-//                dateYM = dateString.substring(0, 6);
-//                dateDay = dateString.substring(6, 8);
-//                System.out.println(dateYM);
-//                System.out.println(dateDay);
-//                System.out.println(dateString);
-//                System.out.println("Retreiving agile investigator...");
-//                drs = OcmBean.retreiveAgileInvestigator(msisdn, dateYM, dateDay, fileNameValue);
-//                if (drs.length() < 40) {
-//                    System.out.println("Setting msh_3andy_hidden to be true");
-//                    msh_3andy_hidden = true;
-//                }
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//        }
-//    }
+    public void retreiveAgileInvestigator() {
+
+        output = null;
+        progress = 0;
+        System.out.println("Starting retreiveAgileInvestigator method...");
+        if (msisdn.equals("")) {
+            drs = "Please Enter the MSISDN !";
+        } else {
+
+            try {
+                System.out.println(drDate);
+                SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+                dateString = format.format(drDate);
+                dateYM = dateString.substring(0, 6);
+                dateDay = dateString.substring(6, 8);
+                System.out.println(dateYM);
+                System.out.println(dateDay);
+                System.out.println(dateString);
+                System.out.println("Retreiving agile investigator...");
+                drs = OcmBean.retreiveAgileInvestigator(msisdn, dateYM, dateDay, fileNameValue);
+                if (drs.length() < 40) {
+                    System.out.println("Setting msh_3andy_hidden to be true");
+                    msh_3andy_hidden = true;
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
     public void retreiveAirDrs() {
     output = null;
