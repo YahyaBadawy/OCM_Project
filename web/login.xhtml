@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <h:head>
+        <title>Login</title>
+        <link rel="shortcut icon" type="image/png"
+              href="#{resource['images/favicon.png']}" />
+
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <!--===============================================================================================-->	
+        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"/>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css"/>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css"/>
+        <!--===============================================================================================-->	
+        <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css"/>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css"/>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css"/>
+        <!--===============================================================================================-->	
+        <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="css/util.css"/>
+        <link rel="stylesheet" type="text/css" href="css/main.css"/>
+        <!--===============================================================================================-->
+        <style>
+            #body { 
+                font-family: 'Open Sans', sans-serif;
+            }
+            .input { 
+                width: 5cm; 
+                margin-bottom: 10px; 
+                background: #fff;
+                border: none;
+                outline: none;
+                padding: 10px;
+                font-size: 13px;
+                color: #000000;
+                border: 1px solid rgba(0,0,0,0.3);
+            }
+            h1 {
+                 color: #ffffff;text-shadow: rgba(147,112,117,0.5) 0px 3px 3px;
+            }
+            #rambous{position:absolute;right:0px;top:0px;display:inline-block;width:1045px;height:600px;z-index:0;top:-80px;}
+            #rambous img{float:right;margin-top:80px;}
+        </style>
+    </h:head>
+
+
+    <h:body id="body">
+
+        <div class="container-login100" style="background-image: url('images/bg-01.jpg');background-size: cover">
+            <div class="wrap-login100">
+                <center><h1>USER LOGIN!</h1></center>
+                <div align="center" style="margin-top: 20%">
+                    <h:form class="login100-form validate-form">
+                        <span class="login100-form-logo">
+                            <img src="#{request.contextPath}/resources/images/MUST3.png" style="width: 65%;"/>
+                        </span>
+                        <table>
+                            <tr>
+                                <div align="center">
+                                    <strong><h:outputText style="color:#ff0000"
+                                                          value="#{LoginBean.errorMessages}"></h:outputText></strong>
+                                </div>
+                                <br/>
+                            </tr>
+                            <tr>
+                                <div class="wrap-input100 validate-input" data-validate = "Enter username">
+                                    <td><p style="font-family:Times New Roman;color:#ffffff;text-shadow: rgba(147,112,117,0.5) 0px 3px 3px;">Username : </p></td><td><p:inputText class="input100" id="name" value="#{LoginBean.username}" styleClass="input"/>
+                                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                                    </td>
+                                </div>
+                            </tr>
+
+
+                            <tr>    
+                                <td><p style="font-family:Times New Roman;color:#ffffff;text-shadow: rgba(147,112,117,0.5) 0px 3px 3px;">Password : </p></td><td><p:password id="password" value="#{LoginBean.password}" styleClass="input"/>
+                                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <br/><br/>
+                        
+                        <div class="container-login100-form-btn">
+                            <p:commandButton class="login100-form-btn" action="#{LoginBean.login()}" ajax="false" value="Login" style="alignment-adjust: middle" />
+                        </div>
+                    </h:form>
+
+                </div>
+                <div style="left: 1px; right: 1px;position:absolute; bottom: 3px">
+                    <p style="font-family:Times New Roman;">Mediation OCM Project Release v1.5</p>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>

@@ -1,0 +1,392 @@
+<?xml version='1.0' encoding='UTF-8' ?>                                                                                                                                             
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">                                                           
+<html xmlns="http://www.w3.org/1999/xhtml"                                                                                                                                          
+      xmlns:p="http://primefaces.org/ui"                                                                                                                                            
+      xmlns:h="http://java.sun.com/jsf/html"                                                                                                                                        
+      xmlns:f="http://java.sun.com/jsf/core">                                                                                                                                       
+
+    <h:head>                                                                                                                                                                        
+        <title>OCM Project</title>                                                                                                                                                  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="refresh" content="${pageContext.session.maxInactiveInterval};url=login.xhtml"/>
+        <link rel="shortcut icon" type="image/png"                                                                                                                                  
+              href="#{resource['images/favicon.png']}" /> 
+        <style>                                                                                                                                                                     
+
+            #body {                                                                                                                                                                 
+                background-image: url("#{resource['/images/mclaren_2.jpg']}");                                                                                                      
+                background-size: cover;                                                                                                                                         
+                background-repeat: no-repeat ;                                                                                                                                      
+                font-family: 'Open Sans', sans-serif;                                                                                                                               
+
+            }                                                                                                                                                                                                                                                                                                                                  
+            .alert {
+                padding: 20px;
+                background-color: #f44336;
+                color: white;
+            }
+
+            .closebtn {
+                margin-left: 15px;
+                color: white;
+                font-weight: bold;
+                float: right;
+                font-size: 22px;
+                line-height: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            .closebtn:hover {
+                color: black;
+            }
+            #rambous{position:absolute;right:0px;top:0px;display:inline-block;width:1045px;height:600px;z-index:0;top:-80px;}                                                       
+            #rambous img{float:right;margin-top:80px;}                                                                                                                              
+        </style>                                                                                                                                                                    
+    </h:head>                                                                                                                                                                       
+    <h:body id="body">                                                                                                                                                              
+
+
+        <center><h:form id="koloalakolo">                                                                                                                                                        
+
+                <div style="width: 60%">
+
+
+                    <p:tabView id="wholeTabView" dynamic="true">                                                                                                                    
+                        <p:ajax event="tabChange" resetValues="true" listener="#{chargingBean.resetValues()}" global="false"/>                                                      
+                        <p:tab title="SDP" id="sdpTab" transient="true">                                                                                                            
+
+                            <table>                                                                                                                                                 
+
+                                <tr>                                                                                                                                                
+                                    <td style="padding: 10px">MSISDN : </td>                                                                                                        
+                                    <td style="padding: 10px">                                                                                                                      
+                                        <p:inputText id="msisdn" value="#{chargingBean.msisdn}" title="10xxxxx Format" required="True" requiredMessage="Please Enter the MSISDN !"/>
+                                        <p:tooltip id="toolTipFocussdp" for="msisdn" showEffect="clip"/>                                                                            
+                                    </td>                                                                                                                                           
+                                </tr>                                                                                                                                               
+                                <tr>                                                                                                                                                
+                                    <td style="padding: 10px">DRs Date : </td>                                                                                                      
+                                    <td style="padding: 10px">                                                                                                                      
+                                        <p:calendar id="popup" value="#{chargingBean.drDate}"/>                                                                                     
+                                    </td>                                                                                                                                           
+                                </tr>                                                                                                                                               
+                                <tr>                                                                                                                                                
+                                    <td style="padding: 10px">DRs Type : </td>                                                                                                      
+                                    <td style="padding: 10px">                                                                                                                      
+                                        <p:selectOneRadio id="console" value="#{chargingBean.drsType}" style="margin-top:5px" layout="pageDirection">                               
+                                            <f:selectItem itemLabel="Raw" itemValue="Raw" />                                                                                        
+                                            <f:selectItem itemLabel="Output (DWH)" itemValue="Output" />                                                                            
+                                        </p:selectOneRadio>                                                                                                                         
+                                    </td>                                                                                                                                           
+                                </tr>                                                                                                                                               
+                                <br/>                                                                                                                                               
+                            </table>                                                                                                                                                
+                            <br/>                                                                                                                                                   
+                            <center> 
+
+                                <p:commandButton value="Submit" icon="ui-icon-refresh" id="submitTask"  style="margin-right: 20px">                                                 
+                                    <p:ajax process="sdpTab" update="sdpTab" listener="#{chargingBean.retreiveSdpDrs()}"/>                                                          
+                                </p:commandButton>                                                                                                                                  
+
+                                <p:commandButton value="Clear" icon="ui-icon-trash" id="clearsdpTask">                                                                              
+                                    <p:ajax process="sdpTab" update="sdpTab" listener="#{chargingBean.resetValues()}"/>                                                             
+                                </p:commandButton>                                                                                                                                  
+                            </center>                                                                                                                                               
+
+                            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />                                                              
+
+                            <p:ajaxStatus onsuccess="PF('respDialogWidget').show();"/>                                                                                              
+
+                            <p:dialog widgetVar="statusDialog" showEffect="explode" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">           
+                                <p:graphicImage value="/resources/images/ajax-loader.gif"/>                                                                            
+                            </p:dialog>                                                                                                                                             
+
+                            <p:dialog id="respDialog" widgetVar="respDialogWidget" closable="false" width="800px" height="600px" resizable="true">                                  
+
+                                <p align="left"><p:outputLabel value="#{chargingBean.drs}" escape="false" style="white-space: pre-wrap"></p:outputLabel></p>                        
+
+                                <center>                                                                                                                                            
+                                    <br/><br/>                                                                                                                                      
+                                    <p:graphicImage library="images" name="msh_3andy.jpg" rendered="#{chargingBean.msh_3andy_hidden}" style="height:350px"/>                        
+                                </center>                                                                                                                                           
+
+                                <f:facet name="header">                                                                                                                             
+                                    <p:outputLabel value="SDP DRs"/>                                                                                                                
+                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 420%">                       
+                                    </p:commandButton>                                                                                                                              
+                                </f:facet>                                                                                                                                          
+
+                            </p:dialog>                                                                                                                                             
+                        </p:tab>
+
+                        <p:tab title="AIR" id="airTab" transient="true">
+
+
+                            <table>
+
+                                <tr>
+                                    <td style="padding: 10px">MSISDN : </td>
+                                    <td style="padding: 10px">
+                                        <p:inputText id="airmsisdn" value="#{chargingBean.msisdn}" title="10xxxxx Format" required="true" requiredMessage="Please Enter the MSISDN !"/>
+                                        <p:tooltip id="toolTipFocusair" for="airmsisdn" showEffect="clip" />
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px">DRs Date : </td>
+                                    <td style="padding: 10px">
+                                        <p:calendar id="airpopup" value="#{chargingBean.drDate}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px">DRs Type : </td>
+                                    <td style="padding: 10px">
+                                        <p:selectOneRadio id="airconsole" value="#{chargingBean.drsType}" style="margin-top:5px" layout="pageDirection">
+                                            <f:selectItem itemLabel="Raw" itemValue="Raw" />
+                                            <f:selectItem itemLabel="Output" itemValue="Output" />
+                                        </p:selectOneRadio>
+                                    </td>
+                                </tr>
+                                <br/>
+                            </table>
+                            <br/>
+                            <center>
+
+                                <p:commandButton value="Submit" icon="ui-icon-refresh" id="submitAirTask"  style="margin-right: 20px">
+                                    <p:ajax process="airTab" update="airTab" listener="#{chargingBean.retreiveAirDrs()}"/>
+                                </p:commandButton>
+
+                                <p:commandButton value="Clear" icon="ui-icon-trash" id="clearairTask">
+                                    <p:ajax process="airTab" update="airTab" listener="#{chargingBean.resetValues()}"/>
+                                </p:commandButton>
+
+                            </center>
+                            <p:ajaxStatus onstart="PF('airstatusDialog').show()" onsuccess="PF('airstatusDialog').hide()" />
+
+                            <p:ajaxStatus onsuccess="PF('airrespDialogWidget').show();" />
+
+                            <p:dialog widgetVar="airstatusDialog" showEffect="explode" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                                <p:graphicImage library="images" name="ajax-loader.gif" />
+                            </p:dialog>
+
+                            <p:dialog
+
+                                id="airrespDialog" widgetVar="airrespDialogWidget" closable="false" width="800px" height="600px" resizable="true">
+
+                                <p align="left"><p:outputLabel value="#{chargingBean.drs}" escape="false" style="white-space: pre-wrap;"/></p>
+
+                                <center>
+                                    <br/><br/>
+                                    <p:graphicImage library="images" name="msh_3andy.gif" rendered="#{chargingBean.msh_3andy_hidden}" style="height:350px"/>
+                                </center>
+
+                                <f:facet name="header">
+                                    <p:outputLabel value="AIR DRs"/>
+                                    <p:commandButton value="Exit"  ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 420%">
+                                    </p:commandButton>
+                                </f:facet>
+
+                            </p:dialog>
+                        </p:tab>
+
+                        <p:tab title="SDP Snapshot" id="snapshotTab" transient="true">
+
+
+                            <table>
+
+                                <tr>
+                                    <td style="padding: 10px">MSISDN : </td>
+                                    <td style="padding: 10px">
+                                        <p:inputText id="snapshotmsisdn" value="#{chargingBean.msisdn}" title="10xxxxx Format" required="true" requiredMessage="Please Enter the MSISDN !"/>
+                                        <p:tooltip id="toolTipFocussnapshot" for="snapshotmsisdn" showEffect="clip" />
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px">Snapshot Date : </td>
+                                    <td style="padding: 10px">
+                                        <p:calendar id="snapshotpopup" value="#{chargingBean.drDate}" pattern="MM/dd/yyyy"/>
+                                    </td>
+                                </tr>
+                                <br/>
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+
+                            <center>
+
+                                <p:commandButton value="Submit" icon="ui-icon-refresh" id="submitsnapshotTask" style="margin-right: 20px">
+                                    <p:ajax process="snapshotTab" update="snapshotTab" listener="#{chargingBean.retreiveSdpSnapshot()}"/>
+                                </p:commandButton>
+
+                                <p:commandButton value="Clear" icon="ui-icon-trash" id="clearsnapshotTask">
+                                    <p:ajax process="snapshotTab" update="snapshotTab" listener="#{chargingBean.resetValues()}"/>
+                                </p:commandButton>
+
+                            </center>
+
+
+                            <p:ajaxStatus onstart="PF('snapshotstatusDialog').show()" onsuccess="PF('snapshotstatusDialog').hide()" />
+
+                            <p:ajaxStatus onsuccess="PF('snapshotrespDialogWidget').show();" />
+
+                            <p:dialog widgetVar="snapshotstatusDialog" showEffect="explode" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                                <p:graphicImage library="images" name="ajax-loader.gif" />
+                            </p:dialog>
+
+                            <p:dialog
+
+                                id="snapshotrespDialog" closeOnEscape="true" widgetVar="snapshotrespDialogWidget" closable="false" width="800px" height="600px" resizable="true">
+
+                                <p align="left"><p:outputLabel value="#{chargingBean.drs}" escape="false" style="white-space: pre-wrap;"/></p>
+
+
+                                <center>
+                                    <br/><br/>
+                                    <p:graphicImage library="images" name="msh_3andy.gif" rendered="#{chargingBean.msh_3andy_hidden}" style="height:350px"/>
+                                </center>
+
+                                <f:facet name="header">
+                                    <p:outputLabel value="SDP Snapshot"/>
+                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 270%">
+                                    </p:commandButton>
+                                </f:facet>
+
+                            </p:dialog>
+                        </p:tab>
+                        
+                        <p:tab title="Data CCN/OCC" id="dccnTab" transient="true">
+
+
+                            <table>
+
+                                <tr>
+                                    <td style="padding: 10px">MSISDN : </td>
+                                    <td style="padding: 10px">
+                                        <p:inputText id="dccnmsisdn" value="#{chargingBean.msisdn}" title="10xxxxx Format" required="true" requiredMessage="Please Enter the MSISDN !"/>
+                                        <p:tooltip id="toolTipFocusdccn" for="dccnmsisdn" showEffect="clip" />
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px">DRs Date : </td>
+                                    <td style="padding: 10px">
+                                        <p:calendar id="dccnpopup" value="#{chargingBean.drDate}" pattern="MM/dd/yyyy HH:00:00"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px">DRs Type : </td>
+                                    <td style="padding: 10px">
+                                        <p:selectOneRadio id="dccnconsole" value="#{chargingBean.drsType}" style="margin-top:5px" layout="pageDirection">
+                                            <f:selectItem itemLabel="Raw" itemValue="Raw" />
+                                            <f:selectItem itemLabel="Output" itemValue="Output" />
+                                        </p:selectOneRadio>
+                                    </td>
+                                </tr>
+                                <br/>
+                            </table>
+                            <br/>
+                            <center>
+
+                                <p:commandButton value="Submit" icon="ui-icon-refresh" id="submitDCCNTask" style="margin-right: 20px">
+                                    <p:ajax process="dccnTab" update="dccnTab" listener="#{chargingBean.retreiveDCCNDrs()}"/>
+                                </p:commandButton>
+
+                                <p:commandButton value="Clear" icon="ui-icon-trash" id="clearDCCNTask">
+                                    <p:ajax process="dccnTab" update="dccnTab" listener="#{chargingBean.resetValues()}"/>
+                                </p:commandButton>
+
+                            </center>
+                            <p:ajaxStatus onstart="PF('dccnstatusDialog').show()" onsuccess="PF('dccnstatusDialog').hide()" />
+
+                            <p:ajaxStatus onsuccess="PF('dccnrespDialogWidget').show();" />
+
+                            <p:dialog widgetVar="dccnstatusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                                <p:graphicImage library="images" name="ajax-loader.gif" />
+                            </p:dialog>
+
+                            <p:dialog
+
+                                id="dccnrespDialog" widgetVar="dccnrespDialogWidget" closable="false" width="800px" height="600px" resizable="true">
+
+                                <p align="left"><p:outputLabel value="#{chargingBean.drs}" escape="false" style="white-space: pre-wrap;"/></p>
+
+                                <center>
+                                    <br/><br/>
+                                    <p:graphicImage library="images" name="msh_3andy.gif" rendered="#{chargingBean.msh_3andy_hidden}" style="height:350px"/>
+                                </center>
+                                
+
+                                <f:facet name="header">
+                                    <p:outputLabel value="DCCN DRs"/>
+                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 370%">
+                                    </p:commandButton>
+                                </f:facet>
+
+                            </p:dialog>
+
+
+                        </p:tab>
+
+
+                        <p:tab title="AF Clear Cache" id="clearcacheTab" transient="true">
+                            <center>
+
+                                <div class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                    <strong>Caution!</strong><p><small>- By committing this action, an AF cache clear process will be spawned on all CCNs, OCCs which if applied in a high traffic window might cause call setup delays.</small></p>
+                                </div>
+                                <br/>
+                                <br/>
+                                <p:commandButton value="Apply Action" icon="ui-icon-refresh" id="clearcacheTask" style="margin-right: 20px">
+                                    <p:ajax process="clearcacheTab" update="clearcacheTab" listener="#{chargingBean.applyCacheClear()}"/>
+                                </p:commandButton>
+                            </center>
+
+                            <p:ajaxStatus onstart="PF('clearcachestatusDialog').show()" onsuccess="PF('clearcachestatusDialog').hide()" />
+
+                            <p:ajaxStatus onsuccess="PF('clearcacherespDialogWidget').show();" />
+
+                            <p:dialog widgetVar="clearcachestatusDialog" showEffect="explode" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                                <p:graphicImage library="images" name="ajax-loader.gif" />
+                            </p:dialog>
+
+                            <p:dialog
+                                id="clearcacherespDialog" closeOnEscape="true" widgetVar="clearcacherespDialogWidget" closable="false" width="800px" height="600px" resizable="true">
+
+                                <p align="left"><p:outputLabel value="#{chargingBean.drs}" escape="false" style="white-space: pre-wrap;"/></p>
+
+                                <center>
+                                    <br/><br/>
+                                    <p:graphicImage library="images" name="msh_3andy.gif" rendered="#{chargingBean.msh_3andy_hidden}" style="height:350px"/>
+                                </center>
+
+                                <f:facet name="header">
+                                    <p:outputLabel value="AF Clear Cache"/>
+                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 270%">
+                                    </p:commandButton>
+                                </f:facet>
+
+                            </p:dialog>
+                        </p:tab>
+                       
+
+                    </p:tabView>
+                    <br/>
+                    <br/>
+                    <div>
+                        <p:commandButton value="Logout" style="position: relative; left: 45%" immediate="true" action="#{LoginBean.logout()}" ajax="false"/>
+                    </div>
+                </div> 
+            </h:form> 
+        </center>                                                                                                                                                               
+
+        <div style="left: 1px; right: 1px;position:absolute; bottom: 0px">
+            <p style="font-family:Times New Roman;">Mediation OCM Project Release v1.5</p>
+        </div>
+    </h:body>                                                                                                                                                                       
+</html>                                                                                                                                                                             
