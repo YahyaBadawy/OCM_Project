@@ -11,15 +11,18 @@
         <meta http-equiv="refresh" content="${pageContext.session.maxInactiveInterval};url=login.xhtml"/>
         <link rel="shortcut icon" type="image/png"                                                                                                                                  
               href="#{resource['images/favicon.png']}" /> 
-        <style>                                                                                                                                                                     
+        <style>
 
-            #body {                                                                                                                                                                 
-                background-image: url("#{resource['/images/mclaren_2.jpg']}");                                                                                                      
-                background-size: cover;                                                                                                                                         
-                background-repeat: no-repeat ;                                                                                                                                      
-                font-family: 'Open Sans', sans-serif;                                                                                                                               
-
-            }                                                                                                                                                                                                                                                                                                                                  
+            #body {
+                background: url("#{resource['/images/mclaren_2.jpg']}") rgba(255, 255, 255, 0.6);
+                background-size: cover;
+                background-attachment: fixed;
+                background-position: center center;
+                background-position:center;
+                background-repeat: no-repeat ;
+                font-family: 'Open Sans', sans-serif;
+                background-blend-mode: overlay;
+            }
             .alert {
                 padding: 20px;
                 background-color: #f44336;
@@ -40,8 +43,20 @@
             .closebtn:hover {
                 color: black;
             }
-            #rambous{position:absolute;right:0px;top:0px;display:inline-block;width:1045px;height:600px;z-index:0;top:-80px;}                                                       
-            #rambous img{float:right;margin-top:80px;}                                                                                                                              
+            #rambous{
+                position:absolute;
+                right:0px;
+                top:0px;
+                display:inline-block;
+                width:1045px;
+                height:600px;
+                z-index:0;
+                top:-80px;
+            }
+            #rambous img{
+                float:right;
+                margin-top:80px;
+            }
         </style>                                                                                                                                                                    
     </h:head>                                                                                                                                                                       
     <h:body id="body">                                                                                                                                                              
@@ -99,7 +114,7 @@
                             <p:ajaxStatus onsuccess="PF('respDialogWidget').show();"/>                                                                                              
 
                             <p:dialog widgetVar="statusDialog" showEffect="explode" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">           
-                                <p:graphicImage value="/resources/images/ajax-loader.gif"/>                                                                            
+                                <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  position:relative; top:15px;" aria-hidden="true"></i>                                                                           
                             </p:dialog>                                                                                                                                             
 
                             <p:dialog id="respDialog" widgetVar="respDialogWidget" closable="false" width="800px" height="600px" resizable="true">                                  
@@ -113,7 +128,7 @@
 
                                 <f:facet name="header">                                                                                                                             
                                     <p:outputLabel value="SDP DRs"/>                                                                                                                
-                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 420%">                       
+                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 100px">                       
                                     </p:commandButton>                                                                                                                              
                                 </f:facet>                                                                                                                                          
 
@@ -167,7 +182,7 @@
                             <p:ajaxStatus onsuccess="PF('airrespDialogWidget').show();" />
 
                             <p:dialog widgetVar="airstatusDialog" showEffect="explode" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                                <p:graphicImage library="images" name="ajax-loader.gif" />
+                                <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  position:relative; top:15px;" aria-hidden="true"></i>
                             </p:dialog>
 
                             <p:dialog
@@ -183,7 +198,7 @@
 
                                 <f:facet name="header">
                                     <p:outputLabel value="AIR DRs"/>
-                                    <p:commandButton value="Exit"  ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 420%">
+                                    <p:commandButton value="Exit"  ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 100px">
                                     </p:commandButton>
                                 </f:facet>
 
@@ -235,7 +250,7 @@
                             <p:ajaxStatus onsuccess="PF('snapshotrespDialogWidget').show();" />
 
                             <p:dialog widgetVar="snapshotstatusDialog" showEffect="explode" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                                <p:graphicImage library="images" name="ajax-loader.gif" />
+                                <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  position:relative; top:15px;" aria-hidden="true"></i>
                             </p:dialog>
 
                             <p:dialog
@@ -252,7 +267,7 @@
 
                                 <f:facet name="header">
                                     <p:outputLabel value="SDP Snapshot"/>
-                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 270%">
+                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 100px">
                                     </p:commandButton>
                                 </f:facet>
 
@@ -306,7 +321,7 @@
                             <p:ajaxStatus onsuccess="PF('dccnrespDialogWidget').show();" />
 
                             <p:dialog widgetVar="dccnstatusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                                <p:graphicImage library="images" name="ajax-loader.gif" />
+                                <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  position:relative; top:15px;" aria-hidden="true"></i>
                             </p:dialog>
 
                             <p:dialog
@@ -323,7 +338,7 @@
 
                                 <f:facet name="header">
                                     <p:outputLabel value="DCCN DRs"/>
-                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 370%">
+                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 100px">
                                     </p:commandButton>
                                 </f:facet>
 
@@ -352,7 +367,7 @@
                             <p:ajaxStatus onsuccess="PF('clearcacherespDialogWidget').show();" />
 
                             <p:dialog widgetVar="clearcachestatusDialog" showEffect="explode" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                                <p:graphicImage library="images" name="ajax-loader.gif" />
+                                <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  position:relative; top:15px;" aria-hidden="true"></i>
                             </p:dialog>
 
                             <p:dialog
@@ -367,7 +382,7 @@
 
                                 <f:facet name="header">
                                     <p:outputLabel value="AF Clear Cache"/>
-                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 270%">
+                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 100px">
                                     </p:commandButton>
                                 </f:facet>
 
@@ -396,7 +411,7 @@
                             <p:ajaxStatus onsuccess="PF('dbcleanuprespDialogWidget').show();" />
 
                             <p:dialog widgetVar="dbcleanupstatusDialog" showEffect="explode" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                                <p:graphicImage library="images" name="ajax-loader.gif" />
+                                <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  position:relative; top:15px;" aria-hidden="true"></i>
                             </p:dialog>
 
                             <p:dialog
@@ -408,17 +423,16 @@
                                     <br/><br/>
                                     <p:graphicImage library="images" name="msh_3andy.gif" rendered="#{chargingBean.msh_3andy_hidden}" style="height:350px"/>
                                 </center>
-                                
+
                                 <f:facet name="header">
                                     <p:outputLabel value="DB Cleanup"/>
-                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 270%">
+                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 100px">
                                     </p:commandButton>
                                 </f:facet>
                             </p:dialog>
                         </p:tab>
-                        
-                        <p:tab title="Agile Investigator" id="agileinvestigatorTab" transient="true">
 
+                        <p:tab title="Agile Investigator" id="agileinvestigatorTab" transient="true">
 
                             <table>
 
@@ -439,11 +453,28 @@
                                 <tr>
                                     <td style="padding: 10px">File Name : </td>
                                     <td style="padding: 10px">
-                                        <p:inputText id="agilefilename" value="#{chargingBean.fileNameValue}" title="SDPOUTPUTCDR_4001xxx.ASN.gz" required="true" requiredMessage="Please Enter the FileName !"/>
-                                        <p:tooltip id="toolTipFocusagilename" for="agilefilename" showEffect="clip" />
+                                        <p:inputText id="agilefilename" value="#{chargingBean.nodeFile}" title="SDPOUTPUTCDR_4001_xxx.ASN.gz" required="true" requiredMessage="Please Enter the MSISDN !"/>
+                                        <p:tooltip id="toolTipFocusagilefilename" for="agilefilename" showEffect="clip" />
+
                                     </td>
-                                </tr> 
-                               
+                                </tr>
+
+                                <tr>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <p:outputLabel for="@next" value="Basic "/>
+                                        <p:selectOneMenu id="option" value="#{chargingBean.selectedOption}">
+                                            <f:selectItem itemLabel="Select One" itemValue=""/>
+                                            <f:selectItem itemLabel="SDP" itemValue="SDP"/>
+                                            <f:selectItem itemLabel="OCC" itemValue="OCC"/>
+                                            <f:selectItem itemLabel="DCCN" itemValue="DCCN"/>
+                                            <f:facet name="footer">
+                                                <p:divider styleClass="p-mt-0" />
+                                                <h:outputText value="Choose Node" style="font-weight:bold;"/>
+                                            </f:facet>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </tr>
+
                                 <br/>
                             </table>
                             <br/>
@@ -469,9 +500,10 @@
 
                             <p:ajaxStatus onsuccess="PF('agilerespDialogWidget').show();" />
 
-                            <p:dialog widgetVar="agilestatusDialog" showEffect="explode" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                                <p:graphicImage library="images" name="ajax-loader.gif" />
+                            <p:dialog widgetVar="agilestatusDialog" showEffect="explode" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" style="height: 5px">
+                                <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  position:relative; top:15px;" aria-hidden="true"></i>
                             </p:dialog>
+
 
                             <p:dialog
 
@@ -487,7 +519,7 @@
 
                                 <f:facet name="header">
                                     <p:outputLabel value="Agile Invistigator"/>
-                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 270%">
+                                    <p:commandButton value="Exit" ajax="false" action="#{chargingBean.resetValues()}" style="position: relative; left: 100px">
                                     </p:commandButton>
                                 </f:facet>
 
@@ -507,7 +539,7 @@
         </center>                                                                                                                                                               
 
         <div style="left: 1px; right: 1px;position:absolute; bottom: 0px">
-            <p style="font-family:Times New Roman;">Mediation OCM Project Release v1.5</p>
+            <p style="font-family:Times New Roman;">Mediation OCM Project Release v1.6</p>
         </div>
     </h:body>                                                                                                                                                                       
 </html>                                                                                                                                                                             
